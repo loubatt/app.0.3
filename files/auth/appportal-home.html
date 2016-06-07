@@ -1,0 +1,535 @@
+ <!DOCTYPE html>
+<html lang="en">
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+                <link rel="shortcut icon" href= "/favico.ico" type="image/ico" />
+                <title></title>
+                <script type="text/javascript" src="js/jquery.js"></script>
+                <script type="text/javascript" src="js/timeout.js"></script>
+                <script type="text/javascript" src="js/ddsmoothmenu.js"></script>
+                <link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" />
+                <link type="text/css" rel="stylesheet" href="css/style.css" />
+                <link type="text/css" rel="stylesheet" href="css/global.css" />
+                <link type="text/css" rel="stylesheet" href="css/table.css" />
+                <script type="text/javascript"src="js/portal.js"></script>  
+				
+                <style type="text/css">
+
+                    #muter {
+                        position: absolute;
+                        background: #F4F4F4;
+                        z-index: 7;
+                        padding: 5px;
+                        border: 1px solid #000;
+                        top: 30%;
+                        left: 42%;
+                        width: 200px;
+                        height:100px;
+                        float:left;
+                    }
+					 #error {
+                        position: absolute;
+                        margin: auto;
+                        bottom: 10px;
+                        padding: 5px;
+                        border: 1px solid #777;
+                        text-align: center;
+                        z-index: 7;
+                        float: right;
+                        cursor: pointer;
+                    }
+                </style>
+
+            </head>
+
+            <body onload="set_interval()" onclick="reset_interval()" onmousemove="reset_interval()" onkeypress="reset_interval()">
+                <div id="muter" style="display: none;">
+                    <p align="center">
+                        <img src="img/loading.gif" id="loading" align="middle" />
+                    </p>
+                    <p id="status" align="center"></p>
+                </div>
+				<div id="error" style="display: none;" class="ui-state-error" >
+                            <a class="ui-icon ui-icon-close" style="z-index: 8;position: absolute; display: inline-block; width: 8px; height: 8px; cursor: pointer;" align="right">close</a>
+                </div> <!--error msginfo -->
+                <div id="header">
+                </div>
+                <div id="control">
+                    <span id="beranda" class="curhand">BERANDA</span> |
+LUQMAN BAIHAQI |
+                <a href="logout.php" style="text-decoration:none ">LOG OUT</a></span>
+        </div>
+		        <div id="menu">
+            <div id="smoothmenu1" class="ddsmoothmenu">
+                <ul> 
+                     <li><a href="#">DATA WAJIB PAJAK</a>
+                        <ul>
+							<li><a href="#">Masterfile Wajib Pajak</a>
+							<ul>
+							<li id="masterfile"><a href="#">Masterfile ODS</a></li>	
+							<li><a href="http://10.254.4.165:8082/npmas.aspx" target="_blank">
+										Masterfile MPN di Bank
+									</a></li> 							
+							</ul>
+							</li>
+                            
+							<li id="ceknpwpvalid"><a href="#"><font size="-2">Daftar NPWP Tidak Valid saat Proses Dropbox</font></a></li>
+                            <li id="monitoring_efiling"><a href="#"><font size="-2">
+										Monitoring Penyampaian e-SPT melalui e-Filling
+								 	</font></a></li>                            
+                          <!--<li><a href="http://wwwsiptc:7778/dbodsapp/etax.login" target="_blank">
+										e-Taxpayers
+									</a></li>
+                            <li><a href="http://wwwsiptc:7778/dbodsapp/pphhut2.login" target="_blank"><font size="-2">
+										PPh Terutang Perwilayah
+									</font></a></li>  
+                            <li><a href="http://wwwsiptb:7777/pls/dip_apps/login_sptbdn" target="_blank"><font size="-2">
+										SPT Tahunan PPh Badan 2006-2010
+									</font></a></li>
+							<li><a href="http://10.254.14.29/datapbb/" target="_blank"><font size="-2">
+										Data Pembayaran PBB per NOP
+									</font></a></li>
+                            <li><a href="http://wwwsiptb:7777/pls/application/pwpm" target="_blank">
+										Monitoring PWPM
+								</a></li>-->
+                            
+							<li id="perkebunan"><a href="#">
+										Data PBB Perkebunan
+								</a></li>
+							   <!--<li id="wpklu"><a href="#">
+										WP Klu Tidak Benar
+								</a></li>-->
+							<li id="pkpcabut"><a href="#"><font size="-2">
+										Monitoring Pencabutan WP PKP
+								</font></a></li>
+							<!--<li id="sandingklu"><a href="#"><font size="-2">Daftar Wajib Pajak dengan KLU Error</font></a></li>--> <!--wide-->
+							<li><a href="#"><span id="tt_sidjp">Tanda Terima SIDJP</span></a></li>
+							<li id="pp46"><a href="#"><font size="-2">Wajib Pajak PP46</font></a></li>
+							<!--<li id="wpterdaftar"><a href="#"><font size="-2">Rekapitulasi WP</font></a></li>-->
+							<li id="pmk198"><a href="#"><font size="-2">Monitoring PMK 198</font></a></li>
+							<li><a href="#">WP PKP Per-12</a>
+							<ul>
+							<li id="pkp_per_12"><a href="#"><font size="-2">WP PKP Per-12/PJ/2014</font></a></li>
+														</ul>
+
+							</li>
+							<li id="efiling_lb"><a href="#"><font size="-2">SPT LB e-Filling</font></a></li>  
+							<li><a href="#"><font size="-2"><span id="npwponline">Cek NPWP yang Wajib SPT Tahunan Elektronik</span></font></a></li>
+							<li><a href="#"><font size="-2"><span id="mon_kswp">Monitoring Hasil KSWP</span></font></a></li>
+							                        </ul>
+                    </li>
+                    <li><a href="#">DATA PENERIMAAN</a>
+                        <ul>
+							<li><a href="http://dashboard/Pages/Dashboard.aspx" target="_blank">Dashboard Penerimaan</a></li>
+                            <li><a href="#">Monitoring SPMKP</a>
+							<ul>
+							<li id="spmkp"><a href="#">Monitoring SPMKP </a></li>
+														</ul>
+                            <li><a href="#">MPN</a>
+                                <ul>
+                                    <li><a href="#"><span id="mpnharianrekon">MPN Harian Rekon</span></a></li>
+                                    <li><a href="#"><span id="spm">Data SPM</span></a></li>
+									<!--<li><a href="http://10.254.4.18:7777/pls/mpn_bp/app_spm" target="_blank">Monitoring SPM</a></li>-->
+                                    <!--<li><a href="http://10.254.4.15/tip/" target="_blank">Tabelaris MPN</a></li>-->
+									<li><a href="#"><span id="kinerja">Kinerja Penerimaan</span></a></li>
+									<!--<li><a href="http://10.254.4.18:7777/pls/lpp2007/lg_mpn.MPN_MP3_PSWD_login_new" target="_blank">
+											<font size="-2">LPP MPN untuk Laporan Keuangan 2011</font></a>
+									</li>
+									<li><a href="#"><span id="mpnlapkeu_2012"> <font size="-2">Data Penerimaan Lapkeu</font></span></a></li>-->
+									<li><a href="#"><span id="tabelarismpn">Tabelaris MPN</span></a></li>
+									<li><a href="#"><span id="mpn_penagihan">MPN Penagihan</span></a></li>				
+<li><a href="#"><span id="pbk">Pemindahbukuan</span></a></li>
+<li><a href="../realtime" target="_blank">Realtime</a></li>
+								</ul>
+                            </li>
+                            
+                            <li><a href="../mpnreversal" target="_blank"><font size="-2">
+									Tindak Lanjut Hasil Konfirm Pembayaran Yg Tdk Diakui
+									</font></a></li>
+							<!-- <li><a href="../monbilling/index.php/main" target="_blank"><font size="-2">
+									Pemantauan Billing System
+									</font></a></li>	-->	
+							
+                          <!-- <li><a href="http://wwwsiptb:7777/pls/mpn_bp/mpn_pasal22.mpn_pasal22_login" target="_blank"><font size="-3">
+										Perbandingan Data Penerimaan PPh Psl 22 Impor dan PPN Impor
+								</font></a></li> -->
+                            <!--<li><a href="#"><font size="-2"><span id="mpnperklu">
+										Penerimaan Unit Kerja DJP Berdasarkan KLU
+								</span></font></a></li>
+                            <li><a href="#"><font size="-4"><span id="rekapmpn_dollar_spmkp">
+										Penerimaan MPN, Dollar, SPMKP Berdasarkan KLU
+									</span></font></a></li>
+                            <li><a href="#"><font size="-4"><span id="limatahunturun2">
+									WP Pembayaran Turun</span></font></a></li>
+                            <li id="wpbesar"><a href="#">
+									WP Besar</a></li>--><!--aldi-->
+							<!--<li id="realisasipenerimaan"><a href="#">
+									Realisasi Penerimaan</a></li><!--danang-->
+							<li><a href="#"><font ><span id="pp46mpn">
+									Pembayaran PP46</span></font></a></li>
+							<li><a href="#"><font ><span id="pbb_000">
+									PBB Belum Terdistribusi</span></font></a></li>	
+                        </ul>
+                    </li>
+                    <li><a href="#">DATA UNIT KERJA</a>
+                        <ul>
+							<li><a href="http://dashboard/Pages/Dashboard.aspx" target="_blank"><font size="-2">
+								Aplikasi Dashboard - Kepatuhan</font></a></li>
+							<li><a href="#"><font size="-2">Monitoring Penerimaan & Pengolahan SPT</font></a>
+								 <ul>
+									<li><a href="#"><font size="-2">Monitoring Drop Box</font></a>
+										<ul>
+											<li><a href="http://10.254.4.31:7777/pls/dropbox/dropboxnew.dropboxnew" target="_blank"><font size="-2">
+													s.d Tahun 2012</font></a></li>
+											<li><a href="http://10.254.4.31:7777/pls/spttahunan/pkg_mon_spttahunan.pengawasan" target="_blank"><font size="-2">
+													Tahun 2013 - 2015</font></a></li>
+											<li><a href="http://10.254.4.31/dropbox2012SLA_New/Container.aspx" target="_blank"><font size="-2">
+													Aplikasi SLA Dropbox</font></a></li>
+											<li><a href="#"><span id="dropbox"><font size="-2">Rekapitulasi Tunggakan Dropbox 2011</font></span></a></li>
+										</ul>
+									</li>
+									<li><a href="http://10.254.4.31:7777/pls/efiling/monefiling12.jmlefilingnas" target="_blank">
+										<font size="-2">Mon Penerimaan SPT Thn Elektronik  </font></a>
+									</li>
+									<li><a href="#"><span id="lap2015"><font size="-2">Mon - Lap Penyampaian SPT Thn PPh 2016</span></a>
+									</li>
+									<li><a href="http://MonitoringSPT:8086/index.aspx" target="_blank"><font size="-2"> Monitoring Pengolahan SPT </font></a>
+									</li>
+									 									<li><a href="#"><span id="efinmasal"><font size="-2">EFIN per Pemberi Kerja</span></a></li> 
+									<li><a href="#"><font size="-2"><span id="npwponlinerekap">Daftar WP Wajib SPT Thn Elektronik</span></font></a></li>
+									<li><a href="#"><span id="tt_sidjp_kpp"><font size="-2">Tanda Terima SIDJP Per Jenis dan Masa Pajak</font></span></a></li>
+								</ul>
+							</li>
+						
+                            <!--<li><a href="http://spnapp1:7777/pls/spn/spnmon.frmspnmon" target="_blank">
+                                    <font size="-2">Monitoring Perekaman FIS SPN</font></a></li>-->
+                            <li><a href="#"><font size="-2"><span id="rekapcd">
+								Pengiriman Backup Data dengan Media CD</span></font></a></li>
+
+                          <li><a href="#"><font size="-2">Monitoring WP NE</font></a>
+                                    <ul>
+										<li><a href="http://10.254.4.31:7777/pls/wpne/wpne_app.wpne" target="_blank"><font size="-2">
+												Data Lama</font></a></li>
+                                        <li><a href="#"><span id="mon_wpne"><font size="-2">Data 2013-2014</font></span></a></li>										
+                                    </ul>
+                          </li>    
+
+                            <!--<li><a href="http://10.254.4.68/monitoringnjop/" target="_blank"><font size="-2">
+								Monitoring Publikasi NJOP Bumi</font></a></li>-->
+                            <!--<li><a href="#"><font size="-2"><span id="perekamanspt">Status Perekaman SPT Tahunan PPh untuk KPP SIP
+                                        </span></font></a></li> -->
+							<!--<li><a href="#"><font size="-2"><span id="monperekamanespt">Monitoring Pemantauan e-SPT</span></font></a></li>-->
+							<li><a href="#"><span id="detilperekaman"><font size="-2">Monitoring Perekaman US Dollar</font></span></a></li>
+							<!--<li><a href="#"><span id="monperekamanlainnya"><font size="-2">Monitoring Pengawasan Supercoridor dan Approweb</font></span></a></li>-->
+							<li><a href="#"><span id="mon_ereg"><font size="-2">Monitoring Ekstensifikasi e-Reg</font></span></a></li>
+							<!--<li><a href="#"><span id="monsp3dri"><font size="-2">Monitoring SP3DRI</font></span></a></li>-->
+							<li><a href="http://10.254.128.215/pph21" target="_blank"><font size="-2">
+								Monev Pemeriksaan PPh 21</font></a></li>
+							<li><a href="#"><span id="mon_penagihan">Monitoring Penagihan</span></a></li>
+							
+							<li><a href="#"><span id="mon_ereg_dobel"><font size="-2">Monitoring e-REG Terindikasi Ganda</font></span></a></li>
+							<!--<li><a href="http://10.254.4.31:7777/pls/efiling/monefiling12.jmlsptnas" target="_blank"><font size="-2">
+								Monitoring efiling via www.pajak.go.id</font></a></li> 
+							<li><a href="http://10.254.4.31:7777/pls/efiling/monefiling12.jmlefilingnas" target="_blank"><font size="-2">
+								Monitoring target efiling / eFIN </font></a></li> -->
+							<li><a href="http://10.254.128.215/timop/" target="_blank"><font size="-2">Portal Analisis WP OP</font></a></li>
+							<li><a href="http://portaldata.intranet.pajak.go.id/" target="_blank"><font size="-2">Portal Pertukaran Data Internal DJP</font></a></li>
+                            <!--<li><a href="#"><span id="npwp_nop">Buku 5 PBB</span></a></li>-->
+							<li><a href="#">Monitoring Data DTH</a>
+	<ul>
+	<li><a href="#"><span id="mon_dth">Monitoring DTH</span></a></li>
+		
+								
+										</ul>
+							</li>							
+							<li><a href="#"><font size="-2"><span id="skb_ppn">SKB PPN IMPOR</span></font></a></li>
+							<li id="digital"><a href="#"><font size="-2"> PKP Pemegang Digital Certificate </font></a></li>
+								<li><a href="#"><font size="-2">Pemantauan Reinventing Policy</font></a>
+                                  <ul>
+                                      <li id="reinventing"><a href="#"><font size="-2">Data SPT Terlambat Dilaporkan pada Tahun 2015</font></a></li>
+                                      <li id="terlambatsetor2"><a href="#"><font size="-2">Data Pembayaran Terlambat Disetor pada Tahun 2015</font></a></li>
+									  <li id="mpnreinventing"><a href="#"><font size="-2">Penyandingan MPN Reinventing VS SPT</font></a></li>
+								  </ul>
+                             </li> 
+							</ul>
+                    </li>
+                    <li><a href="#">APLIKASI ONLINE</a>
+                        <ul>
+								<li><a href="#"><span id="perekaman">Perekaman US Dollar</span></a></li>                                 
+								<!--<li><a href="#"><font size="-2"><span id="perekamanlainnya">Pengawasan Supercoridor dan Approweb</span></font></a></li>
+                                <li><a href="http://10.254.4.31:7777/pls/ipkpapp/app16lu.login" target="_blank">
+                                        <font size="-2">Aplikasi Pengukuran Kinerja Pelayanan</font></a></li>
+                                <!--<li><a href="http://10.254.4.68/njopkanwil/LogIn.aspx" target="_blank">
+                                        <font size="-2">Aplikasi Publikasi NJOP Bumi</font></a></li>-->
+                                <li><a href="http://10.254.235.180/emeterai/" target="_blank">e-Materai</a></li>
+								<li><a href="http://eregkpp2/" target="_blank"><span>e-Registration</span></a></li>
+								<li><a href="#"><font size="-2">Pendaftaran e-FIN</font></a>
+									 <ul>
+										<li><a href="http://dropbox5/eFinWebApp/login.aspx" target="_blank"><font size="-2">e-filing pajak.go.id (1770S & 1770SS)</font></a></li>
+									 </ul>
+								 </li>
+                                <!--<li><a href="http://appportal4.intranet.pajak.go.id/portal/ereg/index.html" target="_blank"><span>e-Registration</span></a></li>-->
+                                <!--<li><a href="#"><font size="-2">Pemantauan e-SPT</font></a>
+                                    <ul>
+                                        <li><a href="#"><font size="-2"><span id="perekamanespt">Perekaman Pemantauan e-SPT KPP</span></font></a></li>
+										<li><a href="#"><font size="-2"><span id="perekamanesptkanwil">Perekaman Pemantauan e-SPT Kanwil</span></font></a></li>     
+                                    </ul>
+                                </li>
+								<li><a href="#"><font size="-2">Pendaftaran e-FIN</font></a>
+                                    <ul>
+										<li><a href="http://dropbox4:7777/pls/efin_apps/efilling3.kwl_efin" target="_blank"><font size="-2">e-filing ASP</font></a></li>
+										<li><a href="http://dropbox5/eFinWebApp/login.aspx" target="_blank"><font size="-2">e-filing pajak.go.id (1770S & 1770SS)</font></a></li>
+										<!--<li><a href="http://dropbox4:7777/pls/pajak_app/efilling3.kwl_efin" target="_blank"><font size="-2">e-filing ASP</font></a></li>-->
+                                        <!--<li><a href="http://wwwsiptb:7777/pls/dip_apps/efiling2012.login" target="_blank"><font size="-2">e-filing pajak.go.id (1770S & 1770SS)</font></a></li>-->
+										<!--<li><a href="http://dropbox4:7777/pls/pajak_app/efiling2012.login" target="_blank"><font size="-2">e-filing pajak.go.id (1770S & 1770SS)</font></a></li>-->
+										<!--<li><a href="#"><font size="-2"><span id="monitoringefin">Monitoring Pendaftaran e-FIN</span></font></a></li>
+                                    </ul>
+                                </li>
+								<!--<li><a href="#"><font size="-2"><span id="sp3dri">Perekaman SP3DRI</span></font></a></li>-->
+								<li><a href="http://monev2013/monev/output/" target="_blank"><font size="-2">Monitoring Belanja Modal</font></a></li>
+								<li><a href="http://e-nofa/" target="_blank"><font size="-2">Elektronik No Faktur</font></a></li>
+								<li><a href="http://dropbox5/spttahunan/" target="_blank"><font size="-2">Dropbox SPT Tahunan</font></a></li>
+								<li><a href="#"><font size="-2">Aplikasi SPN</font></a>
+                                    <ul>
+										<li><a href="http://spnapp1/" target="_blank"><font size="-2">Aplikasi SPN</font></a></li>
+                                        <li><a href="http://bospn/" target="_blank"><font size="-2">Back Office SPN</font></a></li>
+                                    </ul>
+                                </li>
+								
+								<!--<li><a href="http://10.254.9.193:8095/" target="_blank"><font size="-2">VAT Refund 2.0</font></a></li>-->
+								<li><a href="http://vatrefund:8095/" target="_blank"><font size="-2">VAT Refund</font></a></li>								
+								<li><a href="#"><span id="rekam_npwpnik">Perekaman NPWP-NIK</span></a></li>   
+								<li><a href="#"><span id="lappph2015"><font size="-2">Laporan Penyampaian SPT Tahunan PPh 2016</span></a></li> 
+								<li><a href="#">Permintaan Data BPN</a>
+								<ul>
+								<li><a href="#"><span id="pd_bpn">Permintaan Data BPN</span></a></li> 
+								<li><a href="#"><font size="-2"><span id="pd_bpn_mon">Monitoring Permintaan Data BPN</span></font></a></li>
+																<li id="pd_bpn_hasil"><a href="#"><font >Hasil Permintaan Data BPN</font></a></li>
+								</ul>
+								</li>
+								<li><a href="http://aktivasiefin/">Aktivasi EFIN</a>
+						</ul>
+                    </li>
+                    <li><a href="#">APLIKASI KONFIRMASI</a>
+                        <ul>
+                            <li><a href="#"><font size="-2"><span id="ntpn">Konfirmasi NTPN MPN/SPM/MP3</span></font></a></li>
+                            <li><a href="../pkpm/" target="_blank"><font size="-2">
+								Persandingan Data Faktur PKPM</font></a></li>
+							<li><a href="#"><font size="-2"><span id="skp_mpn">Konfirmasi Pembayaran SKP MPN</span></font></a></li>
+							<li><a href="#"><font size="-2"><span id="sandingbuktipotong23">Penyandingan Bukti Potong PPh 23</span></font></a></li>
+							<li><a href="#"><font size="-2"><span id="bupotlawan">Data Bukti Potong - Data Lawan</span></font></a></li>
+							                        </ul>
+                    </li>
+                    <li><a href="#">PENGAWASAN</a>
+                        <ul>
+							                            <!--<li><a href="feeding/index.php" target="_blank">Analisa Data Feeding</a></li>-->
+                            <li><a href="#"><font size="-2">Equalisasi SPT</font></a>
+                                <ul>
+                                    <li id="eq_omset_bdn"><a href="#"><font size="-2">Omzet WP Badan vs PPN</font></a></li>
+                                    <li id="eq_omset_op"><a href="#"><font size="-2">Omzet WP OP vs PPN</font></a></li>
+                                    <li id="eq_belipph_bdn"><a href="#"><font size="-2">Pembelian WP Badan vs PPN</font></a></li>
+									<li id="eq_bunga_sptmasa"><a href="#"><font size="-2">Biaya Bunga vs PPH Psl.23,26,4(2)</font></a></li>
+                                    <li id="eq_jasa_sptmasa"><a href="#"><font size="-2">Biaya Jasa vs PPH Psl.23,26,4(2)</font></a></li>
+                                    <li id="eq_sewa_trans_sptmasa"><a href="#"><font size="-2">Biaya Sewa/Transportasi vsPPH Psl.23,26,4(2),15</font></a></li>
+									<li id="eq_dividen"><a href="#"><font size="-2">Dividen vs PPH Psl.23,26,4(2)</font></a></li>
+									<li id="eq_gaji"><a href="#"><font size="-2">Biaya Gaji vs Psl. 21</font></a></li>  
+									<li id="eq_royalti"><a href="#"><font size="-2">Biaya Royalti vs PPh Psl. 23, 26</font></a></li>
+									<li id="kreditpajak"><a href="#"><font size="-3">Kredit Pjk Pihak III SPT Bdn vs Bukti Potong & MPN</font></a></li>
+									<li id="kp3op_bpotmpn"><a href="#"><font size="-2">Kredit Pajak Pihak III SPT OP vs Bukti Potong & MPN
+									</font></a></li>
+									<li id="omsetbadan_bppph"><a href="#"><font size="-2">Omzet WP Badan vs Bukti Potong PPh</font></a></li>
+									<li id="omsetpph2013"><a href="#"><font size="-2">Omset WP OP vs Bukti Potong PPh</font></a></li>
+								</ul>
+                            </li>							
+                            <li><a href="#"><font size="-2">Pengawasan Pembayaran</font></a>
+								<ul>
+									<li><a href="#"><font size="-2"><span id="pembayaran">Pengawasan Pembayaran Per Masa Pajak</span></font></a></li>
+                     				<!--<li><a href="#"><font size="-2"><span id="bendaharawan">Pengawasan Pembayaran Bendaharawan</span></font></a></li>-->
+									<li id="ne_mpn"><a href="#"><font size="-2">WP NE Ada Pembayaran</font></a></li>
+									<li><a href="#"><font size="-2"><span id="keterlambatan">Keterlambatan Pembayaran Per Masa Pajak</span></font></a></li>
+									<li><a href="#"><font size="-2"><span id="kegiatan_usaha_pembayaran">WP Ada Usaha Tanpa Pembayaran Pajak</span></font></a></li>
+									<li><a href="#"><font size="-2"><span id="takbayar_adausaha">WP Ada Usaha (dari Data Lawan) Tanpa Pembayaran</span></font></a></li>
+									<li><a href="#"><font size="-2"><span id="mpnreinventing2016">Penyandingan SPT dengan MPN 2016</span></font></a></li>
+                        			<li><a href="#"><font size="-2">Penyandingan SPT Masa vs MPN</font></a>
+										<ul>
+											<li><a href="#"><font size="-2"><span id="penyandingan2326mpn">Penyandingan SPT Masa 23/26 dengan MPN</span></font></a></li>
+											<li><a href="#"><font size="-2"><span id="mpn_masa21">Penyandingan SPT Masa 21 dengan MPN</span></font></a></li>
+											<li><a href="#"><font size="-2"><span id="mpn_masa22">Penyandingan SPT Masa 22 dengan MPN</span></font></a></li>
+											<li><a href="#"><font size="-2"><span id="mpn_masa15">Penyandingan SPT Masa 15 dengan MPN</span></font></a></li>
+											<li><a href="#"><font size="-2"><span id="mpn_masa42">Penyandingan SPT Masa 4(2) dengan MPN</span></font></a></li>
+										</ul>
+									</li>
+								</ul>
+							</li>							
+							<li><a href="#"><font size="-2">Pengawasan PPN</font></a>
+								<ul>
+									<li><a href="#"><font size="-2">WP Non PKP</font></a>
+										<ul>
+											<li><a href="#"><font size="-2"><span id="nonpkpfaktur">Menerbitkan Faktur Pajak</span></font></a></li>
+											<li><a href="#"><font size="-2"><span id="nonpkp_faktur_pemungut">Menerbitkan Faktur Pajak - Transaksi Pemungut</span></font></a></li>
+											<li><a href="#"><font size="-2"><span id="belinonpkp">Pembelian Diatas Rp. 600 juta</span></font></a></li>
+											<li><a href="#"><font size="-2"><span id="omzetnonpkp">Omset Diatas Rp. 600 juta</span></font></a></li>
+										</ul>
+									</li>
+									<li><a href="#"><font size="-2">Daftar Faktur Pajak Ganda</font></a>
+										<ul>
+											<li><a href="#"><font size="-2"><span id="fakturganda1">WP Indikasi Penerbit</span></font></a></li>
+											<li><a href="#"><font size="-2"><span id="fakturganda2">Lawan Tak Berhak Mengkreditkan PM</span></font></a></li>
+										</ul>
+									</li>
+									<li><a href="#"><font size="-2">PKP Lapor Penyerahan Nihil</font></a>
+										<ul>
+											<li><a href="#"><font size="-2"><span id="adafaktur2">Menerbitkan Faktur Pajak</span></font></a></li>
+											<li><a href="#"><font size="-2"><span id="nihiltakberhak">Lawan Tak Berhak Mengkreditkan PM</span></font></a></li>
+										    <!--<li><a href="#"><font size="-2"><span id="ppn_nihil_ada_mpn">Membayar MPN DN dan atau Impor</span></font></a></li>-->
+											<li><a href="#"><font size="-2"><span id="adafaktur_pemungut">Ada Faktur Transaksi dengan Pemungutan</span></font></a></li>
+                                        </ul>
+									</li>
+									<li><a href="#"><font size="-2">PKP Tak Lapor SPT PPN</font></a>
+										<ul>
+											<li><a href="#"><font size="-2"><span id="pkptaklapor">Menerbitkan Faktur Pajak</span></font></a></li>
+											<li><a href="#"><font size="-2"><span id="pkptaklapor_pengguna">Lawan Tak Berhak Mengkreditkan PM</span></font></a></li>
+										    <!--<li><a href="#"><font size="-2"><span id="pkptaklapor_ada_mpn">Membayar MPN DN dan atau Impor</span></font></a></li>-->
+                                        </ul>
+									</li>
+									</li>
+									<li><a href="#"><font size="-2"><span id="kreditnonpkp">PKP Mengkreditkan PM dari Non PKP</span></font></a></li>
+									<!--<li><a href="#"><font size="-2"><span id="pkpdicabut">PKP Mengkreditkan PM PKP Dicabut - Hasil Reg Ulang</span></font></a></li> -->
+									<li><a href="#"><font size="-2"><span id="pkppmwpsuspect">PKP Mengkreditkan PM WP Suspect</span></font></a></li>
+									<li><a href="#"><font size="-2"><span id="fpbukannsfp">FP Tidak Sesuai NSFP</span></font></a></li>
+									<li><a href="#"><font size="-2"><span id="pkpbukannsfp">PKP Mengkreditkan Tidak Sesuai NSFP</span></font></a></li>
+									<li><a href="#"><font size="-2"><span id="lampiranb1mpn">Lampiran B1 SPT PPN vs MPN</span></font></a></li>
+								</ul>
+								
+							</li>
+							<!--<li><a href="#"><font size="-2">Ekspor Impor</font></a>
+								<ul>
+									<li id="sptpeb"><a href="#"><font size="-2">WP Tak Lapor SPT Tahunan - Ada Transaksi PEB</font></a></li>
+									<li id="sptpib"><a href="#"><font size="-2">WP Tak Lapor SPT Tahunan - Ada Transaksi PIB</font></a></li>
+									<li id="pib_sptppn"><a href="#"><font size="-2">Penyandingan Data PIB, Pengakuan Impor dengan Data Impor SPT Masa PPN</font></a></li>
+									<li id="sandingpebexport"><a href="#"><font size="-2">Penyandingan Data PEB vs Data Ekspor pada SPT Masa PPN</font></a></li>
+									<li id="pembebasanbea"><a href="#"><font size="-2">Pembebasan Bea Masuk & Cukai VS Pelaporan SPT</font></a></li>
+									<li id="sumbc23"><a href="#"><font size="-2">Penyandingan Impor Ke Kawasan Berikat dengan Data Impor SPT Masa PPN </font></a></li>
+									
+								</ul>
+							</li>-->
+							
+							
+							<!--<li><a href="#"><font>Data Pihak 3</font></a>
+                                <ul>
+                                    <li id="wpbatubara"><a href="#"><font size="-2">Daftar Wajib Pajak Batubara</font></a></li>
+									<li id="p3b"><a href="#"><font size="-2">Penerima Penghasilan dari Negara Mitra P3B</font></a></li>
+                                </ul>
+                            </li>-->
+							<li><a href="#"><font>Bendahara</font></a>
+                                <ul>
+                                    <li><a href="#"><font size="-2"><span id="bendaharawanrekanan">Bendahara Tdak Lapor - Ada Transaksi</span></font></a></li>
+									<li id="eq_bend_put_1107"><a href="#"><font size="-2">Equalisasi SPT Masa PPN-1107 PUT</font></a></li>
+								</ul>
+                            </li>							
+							<li id="omsetklu"><a href="#"><font size="-2">Data Wajib Pajak Berdasarkan KLU</font></a></li>
+							
+							<li><a href="#"><font size="-2">Faktur Pajak vs Bukti Potong</font></a>
+                                <ul>
+                                    <!--<li id="fp_vs_bupot23"><a href="#"><font size="-2">Faktur Pajak vs Bukti Potong PPh 23</font></a></li>
+									<li id="fp_vs_bupot42"><a href="#"><font size="-2">Faktur Pajak vs Bukti Potong PPh 4(2)</font></a></li>
+									<li id="fp_vs_bupot15"><a href="#"><font size="-2">Faktur Pajak vs Bukti Potong PPh 15</font></a></li>-->
+									<li id="bupot23ppn"><a href="#"><font size="-2">FP vs Bukti Potong PPh 23 - Tidak Pungut PPN</font></a></li>
+									<li id="bupot23pph"><a href="#"><font size="-2">FP vs Bukti Potong PPh 23 - Tidak Pungut PPh 23</font></a></li>
+									<li id="bupot42ppn"><a href="#"><font size="-2">FP vs Bukti Potong PPh 4(2) - Tidak Pungut PPN</font></a></li>
+									<li id="bupot42pph"><a href="#"><font size="-2">FP vs Bukti Potong PPh 4(2) - Tidak Pungut PPh 4(2)</font></a></li>									
+									<li id="bupot15ppn"><a href="#"><font size="-2">FP vs Bukti Potong PPh 15 - Tidak Pungut PPN</font></a></li>
+									<li id="bupot15pph"><a href="#"><font size="-2">FP vs Bukti Potong PPh 15 - Tidak Pungut PPh 15</font></a></li>
+                                </ul>
+                            </li>
+							<li><a href="#"><font>Pelaporan</font></a>
+                                <ul>
+                                    <li><a href="#"><span id="terlambat"><font size="-2">SPT Terlambat Lapor / Bayar</font></span></a></li>
+									<li><a href="#"><span id="tidaklapor">SPT Tidak Lapor</span></a></li>
+									<li><a href="#"><span id="reskom"><font size="-2">SPT PPN Restitusi / Kompensasi</font></span></a></li>	
+									<li><a href="#"><span id="belumlapor"><font size="-2">Karyawan Belum Lapor</font></span></a></li>	
+                                </ul>
+                            </li>
+							<li><a href="#"><font>WP Non Efektif</font></a>
+                                <ul>
+                                    <li><a href="#"><span id="nebayar"><font size="-2">Ada Pembayaran/Pelaporan SPT</font></span></a></li>
+									<li><a href="#"><span id="nelawan"><font size="-2">Ada Data Lawan Transaksi</font></span></a></li>
+								</ul>
+                            </li>
+							<!--<li><a href="#"><font>Bendahara</font></a>
+                                <ul>
+                                    <li><a href="#"><font size="-2"><span id="bendaharawanrekanan">Bendahara Tdak Lapor - Ada Transaksi</span></font></a></li>
+								</ul>
+                            </li>-->
+							<li><a href="#"><font>SPT Tahunan</font></a>
+                                <ul>
+									<!--<li><a href="#"><font size="-2">Daftar WP Tidak Seharusnya Melaporkan SPT 1770 S</font></a>
+										<ul>
+											<li><a href="#"><font size="-2"><span id="sptops">Pemegang Saham/Pengurus</span></font></a></li>
+											<li><a href="#"><font size="-2"><span id="sptops_nonsaham">Non Pemegang Saham/Pengurus</span></font></a></li>
+										</ul>
+									</li>
+                                    <li><a href="#"><font size="-2"><span id="sptopss">Daftar WP Tidak Seharusnya Melaporkan SPT 1770 SS</span></font></a></li>-->
+									<li><a href="#">WP TLTD</a>
+										<ul>
+											<li id="taklapor_adadata"><a href="#">WP TLTD</a></li>
+											<li id="nonfiler_mon_s40"><a href="#">Monitoring WP TLTD (S-40/PJ.08/2016)</a></li>											
+										</ul>
+									</li>
+									<li id="hartahutangvspenghasilanop"><a href="#"><font size="-2">Pertumbuhan Harta Hutang vs Penghasilan WP OP</font></a></li>
+									<li id="adausahatidaklapor"><a href="#"><font size="-2">Tidak Lapor SPT PPh ada Usaha</font></a></li>
+									<!--<li id="taklapor_adausaha"><a href="#"><font size="-2">Tak Lapor SPT PPh ada Usaha (Data Lawan)</font></a></li>-->
+									<li id="datapemegangsaham"><a href="#"><font size="-2">Data Pemegang Saham</font></a></li>							
+									<li id="rugitidaklebih"><a href="#"><font size="-2">SPT Tahunan PPh Rugi - Tidak Lebih Bayar</font></a></li>	
+									<li id="opnonss"><a href="#"><font size="-2">WP OP Tidak Seharusnya Lapor SS</font></a></li>	
+									<li id="opnons"><a href="#"><font size="-2">WP OP Tidak Seharusnya Lapor S</font></a></li>	
+                                </ul>
+                            </li>
+							<li><a href="#"><font size="-2"><span id="pengawasanpp46">Pengawasan PKP PP 46</span></font></a></li>
+							<!--<li id="pp46"><a href="#"><font size="-2">NPWP pp46</font></a></li>-->
+							<li><a href="../mawas" target="_blank">Summary Pengawasan</a></li>
+																				</ul>
+                    </li>
+					
+					<!---->
+                    <li><a href="#">DATA PIHAK KETIGA</a>
+                        <ul>
+                                <!--<li><a href="pibnew/index.php" target="_blank">Informasi Data PIB</a></li>-->
+								<!--<li><a href="peb/index.php" target="_blank">Informasi Data PEB</a></li>-->
+																<li><a href="http://appportal4.intranet.pajak.go.id/app_pp31/index.php/main/penduduk/" target="blank">Data Kependudukan </a></li>
+																								<li><a href="http://appportal4.intranet.pajak.go.id/app_pp31/">Data PP 31/2012</a></li>
+								<li><a href="#"><font size="-2"><span id="sp2dnama">Download Pencairan SP2D</span></font></a></li>
+								<li><a href="#"><font>Penyandingan Data</font></a>
+                                <ul>
+									<li><a href="#"><font size="-2"><span id="pmk16_sp2d">Penyandingan Data Lelang, SP2D vs SPT dan MPN</span></font></a></li>
+									<li><a href="#"><font size="-2"><span id="sandingpagusp2d">Penyandingan Pagu APBN vs SP2D</span></font></a></li>
+									<li><a href="#"><font size="-2"><span id="npwp_nop">Penyandingan Buku 5 PBB</span></font></a></li>
+                                    <li><a href="#"><font size="-2"><span id="lelang">Penyandingan Lelang vs SPT</span></font></a></li>
+									<li><a href="#"><font size="-2"><span id="devisahasilekspor">Penyandingan Devisa Hasil Ekspor</span></font></a></li>
+									<li><a href="#"><font size="-2"><span id="sandingkseivsopvsinvestbdn">Data Transaksi <i>Corporate Action</i> vs Harta WP OP vs Investasi WP Badan</span></font></a></li>
+									<li><a href="#"><font size="-2"><span id="fakturk3s">Penyandingan Data KKKS</span></font></a></li>
+									<li><a href="#"><font size="-2"><span id="notaris_op">Transaksi Notaris vs SPT PPh OP</span></font></a></li>
+									<li><a href="#"><font size="-2"><span id="notaris_nonnpwp">Daftar Notaris Belum Memiliki NPWP / NPWP Tidak Valid</span></font></a></li>
+                                </ul>
+								</li>
+								<li><a href="#"><font size="-2"><span id="royalti">Data Royalti Minerba</span></font></a></li>
+								<li><a href="http://appportal4.intranet.pajak.go.id/pdedjbc_intranet/">Portal Pertukaran Data DJP-DJBC</a></li>
+																
+																								<li><a href="http://appportal4.intranet.pajak.go.id/juggernaut" target="_blank">Data Lainnya</a></li>
+																								<li><a href="#"><span id="spmkp_kppn">Data SPMKP KPPN</span></a></li>								
+																<!--<li><a href="http://appportal4.intranet.pajak.go.id/juggernaut" target="_blank">Data Lainnya</a></li>-->
+																
+		     	        </ul>
+                    </li>
+					                </ul>
+                <br style="clear: left" />
+            </div>
+        </div>
+        <div id="judul">
+        </div>
+        <div id="content">
+        </div>
+		<div id="home">
+        </div>
+    </body>
+</html>
